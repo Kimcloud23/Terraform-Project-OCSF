@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kim's Presentation Feedback Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Kim's Feedback Form</h2>
+    
+    <form id="feedbackForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="feedback">Feedback:</label>
+        <textarea id="feedback" name="feedback" rows="4" required></textarea>
+
+        <button type="button" onclick="submitFeedback()">Submit Feedback</button>
+    </form>
+
+    <script>
+        function submitFeedback() {
+            // Collect form data
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var feedback = document.getElementById("feedback").value;
+
+            // Prepare data object
+            var feedbackData = {
+                name: name,
+                email: email,
+                feedback: feedback
+            };
+
+            // Call your Lambda function to submit feedback
+            fetch('https://ma12ryxvzl.execute-api.us-east-1.amazonaws.com/prod', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': '*'
+                },
+                body: JSON.stringify(feedbackData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle success
+                alert(data.message);
+                // You can also redirect or perform additional actions upon successful submission
+            })
+            .catch(error => {
+                // Handle error
+                console.error('Error submitting feedback:', error);
+                alert('Ooops. Please try again.');
+            });
+        }
+        async function handler(event) {
+          const request = event.request;
+          const response = event.response;
+         
+          // If Access-Control-Allow-Origin CORS header is missing, add it.
+          // Since JavaScript doesn't allow for hyphens in variable names, we use the dict["key"] notation.
+          if (
+            !response.headers["access-control-allow-origin"] &&
+            request.headers["origin"]
+          ) {
+            response.headers["access-control-allow-origin"] = {
+              value: request.headers["origin"].value,
+            };
+            console.log("Access-Control-Allow-Origin was missing, adding it now.");
+          }
+         
+          return response;
+        }
+         
+    </script>
+
+</body>
+</html>
