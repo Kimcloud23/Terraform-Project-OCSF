@@ -1,72 +1,9 @@
 {
   "version": 4,
   "terraform_version": "1.6.0",
-  "serial": 2130,
+  "serial": 1959,
   "lineage": "b255e2f7-b4c5-9eb0-bafc-a349ad814862",
-  "outputs": {
-    "lambda": {
-      "value": {
-        "arn": "arn:aws:iam::452426097938:role/lambda_execution_role",
-        "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
-        "create_date": "2024-02-07T13:22:41Z",
-        "description": "",
-        "force_detach_policies": false,
-        "id": "lambda_execution_role",
-        "inline_policy": [],
-        "managed_policy_arns": [
-          "arn:aws:iam::452426097938:policy/api_lambda_feedback_policy",
-          "arn:aws:iam::452426097938:policy/lambda_Dynamo_policy"
-        ],
-        "max_session_duration": 3600,
-        "name": "lambda_execution_role",
-        "name_prefix": "",
-        "path": "/",
-        "permissions_boundary": "",
-        "tags": {},
-        "tags_all": {},
-        "unique_id": "AROAWSVVSMUJLQ7ESKDWJ"
-      },
-      "type": [
-        "object",
-        {
-          "arn": "string",
-          "assume_role_policy": "string",
-          "create_date": "string",
-          "description": "string",
-          "force_detach_policies": "bool",
-          "id": "string",
-          "inline_policy": [
-            "set",
-            [
-              "object",
-              {
-                "name": "string",
-                "policy": "string"
-              }
-            ]
-          ],
-          "managed_policy_arns": [
-            "set",
-            "string"
-          ],
-          "max_session_duration": "number",
-          "name": "string",
-          "name_prefix": "string",
-          "path": "string",
-          "permissions_boundary": "string",
-          "tags": [
-            "map",
-            "string"
-          ],
-          "tags_all": [
-            "map",
-            "string"
-          ],
-          "unique_id": "string"
-        }
-      ]
-    }
-  },
+  "outputs": {},
   "resources": [
     {
       "mode": "data",
@@ -109,9 +46,9 @@
         {
           "schema_version": 0,
           "attributes": {
-            "api_endpoint": "https://k4yp97orw0.execute-api.us-east-1.amazonaws.com",
+            "api_endpoint": "https://bpwb619u51.execute-api.us-east-1.amazonaws.com",
             "api_key_selection_expression": "$request.header.x-api-key",
-            "arn": "arn:aws:apigateway:us-east-1::/apis/k4yp97orw0",
+            "arn": "arn:aws:apigateway:us-east-1::/apis/bpwb619u51",
             "body": null,
             "cors_configuration": [
               {
@@ -135,9 +72,9 @@
             "credentials_arn": null,
             "description": "",
             "disable_execute_api_endpoint": false,
-            "execution_arn": "arn:aws:execute-api:us-east-1:452426097938:k4yp97orw0",
+            "execution_arn": "arn:aws:execute-api:us-east-1:452426097938:bpwb619u51",
             "fail_on_warnings": null,
-            "id": "k4yp97orw0",
+            "id": "bpwb619u51",
             "name": "feedback_api",
             "protocol_type": "HTTP",
             "route_key": null,
@@ -161,13 +98,13 @@
         {
           "schema_version": 0,
           "attributes": {
-            "api_id": "k4yp97orw0",
+            "api_id": "bpwb619u51",
             "connection_id": "",
             "connection_type": "INTERNET",
             "content_handling_strategy": "",
             "credentials_arn": "",
             "description": "Lambda integration",
-            "id": "zb7r17j",
+            "id": "u0a1pla",
             "integration_method": "POST",
             "integration_response_selection_expression": "",
             "integration_subtype": "",
@@ -186,7 +123,11 @@
           "private": "bnVsbA==",
           "dependencies": [
             "aws_apigatewayv2_api.feedback_api",
+            "aws_db_instance.cffdb",
+            "aws_dynamodb_table.feedbacktable",
+            "aws_iam_policy.lambda_policy",
             "aws_iam_role.lambda_role",
+            "aws_iam_role_policy_attachment.lambda_attachment",
             "aws_lambda_function.trigger_feedback"
           ]
         }
@@ -201,26 +142,30 @@
         {
           "schema_version": 0,
           "attributes": {
-            "api_id": "k4yp97orw0",
+            "api_id": "bpwb619u51",
             "api_key_required": false,
             "authorization_scopes": [],
             "authorization_type": "NONE",
             "authorizer_id": "",
-            "id": "ga37xsk",
+            "id": "h1m7z7v",
             "model_selection_expression": "",
             "operation_name": "",
             "request_models": {},
             "request_parameter": [],
-            "route_key": "POST /feedback_route",
+            "route_key": "POST /prod",
             "route_response_selection_expression": "",
-            "target": "integrations/zb7r17j"
+            "target": "integrations/u0a1pla"
           },
           "sensitive_attributes": [],
           "private": "bnVsbA==",
           "dependencies": [
             "aws_apigatewayv2_api.feedback_api",
             "aws_apigatewayv2_integration.lambda_integration",
+            "aws_db_instance.cffdb",
+            "aws_dynamodb_table.feedbacktable",
+            "aws_iam_policy.lambda_policy",
             "aws_iam_role.lambda_role",
+            "aws_iam_role_policy_attachment.lambda_attachment",
             "aws_lambda_function.trigger_feedback"
           ]
         }
@@ -236,8 +181,8 @@
           "schema_version": 0,
           "attributes": {
             "access_log_settings": [],
-            "api_id": "k4yp97orw0",
-            "arn": "arn:aws:apigateway:us-east-1::/apis/k4yp97orw0/stages/prod",
+            "api_id": "bpwb619u51",
+            "arn": "arn:aws:apigateway:us-east-1::/apis/bpwb619u51/stages/prod",
             "auto_deploy": true,
             "client_certificate_id": "",
             "default_route_settings": [
@@ -249,11 +194,11 @@
                 "throttling_rate_limit": 0
               }
             ],
-            "deployment_id": "zj6grc",
+            "deployment_id": "wtuy7i",
             "description": "",
-            "execution_arn": "arn:aws:execute-api:us-east-1:452426097938:k4yp97orw0/prod",
+            "execution_arn": "arn:aws:execute-api:us-east-1:452426097938:bpwb619u51/prod",
             "id": "prod",
-            "invoke_url": "https://k4yp97orw0.execute-api.us-east-1.amazonaws.com/prod",
+            "invoke_url": "https://bpwb619u51.execute-api.us-east-1.amazonaws.com/prod",
             "name": "prod",
             "route_settings": [],
             "stage_variables": {},
@@ -265,6 +210,98 @@
           "dependencies": [
             "aws_apigatewayv2_api.feedback_api"
           ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_db_instance",
+      "name": "cffdb",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "address": "terraform-20240201144403015900000001.cb26mwc0o7x8.us-east-1.rds.amazonaws.com",
+            "allocated_storage": 10,
+            "allow_major_version_upgrade": null,
+            "apply_immediately": false,
+            "arn": "arn:aws:rds:us-east-1:452426097938:db:terraform-20240201144403015900000001",
+            "auto_minor_version_upgrade": true,
+            "availability_zone": "us-east-1c",
+            "backup_retention_period": 0,
+            "backup_target": "region",
+            "backup_window": "09:56-10:26",
+            "blue_green_update": [],
+            "ca_cert_identifier": "rds-ca-2019",
+            "character_set_name": "",
+            "copy_tags_to_snapshot": false,
+            "custom_iam_instance_profile": "",
+            "customer_owned_ip_enabled": false,
+            "db_name": "cffdb",
+            "db_subnet_group_name": "default",
+            "delete_automated_backups": true,
+            "deletion_protection": false,
+            "domain": "",
+            "domain_iam_role_name": "",
+            "enabled_cloudwatch_logs_exports": [],
+            "endpoint": "terraform-20240201144403015900000001.cb26mwc0o7x8.us-east-1.rds.amazonaws.com:3306",
+            "engine": "mysql",
+            "engine_version": "5.7",
+            "engine_version_actual": "5.7.44",
+            "final_snapshot_identifier": null,
+            "hosted_zone_id": "Z2R2ITUGPM61AM",
+            "iam_database_authentication_enabled": false,
+            "id": "db-3YUYA6FHLYW3K4EFMZLTULXO5I",
+            "identifier": "terraform-20240201144403015900000001",
+            "identifier_prefix": "terraform-",
+            "instance_class": "db.t2.micro",
+            "iops": 0,
+            "kms_key_id": "",
+            "latest_restorable_time": "",
+            "license_model": "general-public-license",
+            "listener_endpoint": [],
+            "maintenance_window": "sun:06:45-sun:07:15",
+            "manage_master_user_password": null,
+            "master_user_secret": [],
+            "master_user_secret_kms_key_id": null,
+            "max_allocated_storage": 0,
+            "monitoring_interval": 0,
+            "monitoring_role_arn": "",
+            "multi_az": false,
+            "nchar_character_set_name": "",
+            "network_type": "IPV4",
+            "option_group_name": "default:mysql-5-7",
+            "parameter_group_name": "default.mysql5.7",
+            "password": "TerraformGuru23",
+            "performance_insights_enabled": false,
+            "performance_insights_kms_key_id": "",
+            "performance_insights_retention_period": 0,
+            "port": 3306,
+            "publicly_accessible": false,
+            "replica_mode": "",
+            "replicas": [],
+            "replicate_source_db": "",
+            "resource_id": "db-3YUYA6FHLYW3K4EFMZLTULXO5I",
+            "restore_to_point_in_time": [],
+            "s3_import": [],
+            "skip_final_snapshot": true,
+            "snapshot_identifier": null,
+            "status": "available",
+            "storage_encrypted": false,
+            "storage_throughput": 0,
+            "storage_type": "gp2",
+            "tags": {},
+            "tags_all": {},
+            "timeouts": null,
+            "timezone": "",
+            "username": "KimPossible",
+            "vpc_security_group_ids": [
+              "sg-050f92764a670a872"
+            ]
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNDAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInVwZGF0ZSI6NDgwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMiJ9"
         }
       ]
     },
@@ -335,11 +372,11 @@
             "table_class": "STANDARD",
             "tags": {
               "Environment": "production",
-              "Name": "dynamodb-table-feedbackdb"
+              "Name": "dynamodb-table-cff"
             },
             "tags_all": {
               "Environment": "production",
-              "Name": "dynamodb-table-feedbackdb"
+              "Name": "dynamodb-table-cff"
             },
             "timeouts": null,
             "ttl": [
@@ -364,14 +401,14 @@
         {
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:iam::452426097938:policy/api_lambda_feedback_policy",
+            "arn": "arn:aws:iam::452426097938:policy/api_lambda_execution_policy",
             "description": "Policy for Lambda execution by API Gateway",
-            "id": "arn:aws:iam::452426097938:policy/api_lambda_feedback_policy",
-            "name": "api_lambda_feedback_policy",
+            "id": "arn:aws:iam::452426097938:policy/api_lambda_execution_policy",
+            "name": "api_lambda_execution_policy",
             "name_prefix": "",
             "path": "/",
             "policy": "{\"Statement\":[{\"Action\":\"lambda:InvokeFunction\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:lambda:us-east-1:452426097938:function:SendToDatabase\"}],\"Version\":\"2012-10-17\"}",
-            "policy_id": "ANPAWSVVSMUJJCPAXY4FH",
+            "policy_id": "ANPAWSVVSMUJNS7TSSWMO",
             "tags": {},
             "tags_all": {}
           },
@@ -389,39 +426,14 @@
         {
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:iam::452426097938:policy/lambda_Dynamo_policy",
-            "description": "Allows Lambda to perform read and write operations on DynamoDB table",
-            "id": "arn:aws:iam::452426097938:policy/lambda_Dynamo_policy",
-            "name": "lambda_Dynamo_policy",
+            "arn": "arn:aws:iam::452426097938:policy/lambda_dynamodb_policy",
+            "description": "Allows Lambda to perform read and write operations on DynamoDB tables",
+            "id": "arn:aws:iam::452426097938:policy/lambda_dynamodb_policy",
+            "name": "lambda_dynamodb_policy",
             "name_prefix": "",
             "path": "/",
             "policy": "{\"Statement\":[{\"Action\":[\"dynamodb:PutItem\",\"dynamodb:UpdateItem\",\"dynamodb:DeleteItem\",\"dynamodb:GetItem\",\"dynamodb:Query\",\"dynamodb:Scan\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:dynamodb:*:*:table/*\",\"Sid\":\"AllowDynamoDBReadWrite\"}],\"Version\":\"2012-10-17\"}",
-            "policy_id": "ANPAWSVVSMUJPVQQUKA5Y",
-            "tags": {},
-            "tags_all": {}
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA=="
-        }
-      ]
-    },
-    {
-      "mode": "managed",
-      "type": "aws_iam_policy",
-      "name": "s3_upload_policy",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "arn": "arn:aws:iam::452426097938:policy/S3UploadPolicy",
-            "description": "Policy for allowing S3 uploads",
-            "id": "arn:aws:iam::452426097938:policy/S3UploadPolicy",
-            "name": "S3UploadPolicy",
-            "name_prefix": "",
-            "path": "/",
-            "policy": "{\"Statement\":[{\"Action\":\"s3:PutObject\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::onlinecustomerfbsurvey/*\"}],\"Version\":\"2012-10-17\"}",
-            "policy_id": "ANPAWSVVSMUJFLFATKOZN",
+            "policy_id": "ANPAWSVVSMUJNSJZRZ56M",
             "tags": {},
             "tags_all": {}
           },
@@ -439,24 +451,24 @@
         {
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:iam::452426097938:role/feedback_form_api_gateway",
+            "arn": "arn:aws:iam::452426097938:role/api_gateway_invoke_role",
             "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"apigateway.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
-            "create_date": "2024-02-07T13:22:41Z",
+            "create_date": "2024-02-01T14:44:03Z",
             "description": "",
             "force_detach_policies": false,
-            "id": "feedback_form_api_gateway",
+            "id": "api_gateway_invoke_role",
             "inline_policy": [],
             "managed_policy_arns": [
-              "arn:aws:iam::452426097938:policy/api_lambda_feedback_policy"
+              "arn:aws:iam::452426097938:policy/api_lambda_execution_policy"
             ],
             "max_session_duration": 3600,
-            "name": "feedback_form_api_gateway",
+            "name": "api_gateway_invoke_role",
             "name_prefix": "",
             "path": "/",
             "permissions_boundary": "",
             "tags": {},
             "tags_all": {},
-            "unique_id": "AROAWSVVSMUJFBPGPMXX2"
+            "unique_id": "AROAWSVVSMUJMIYPS7AZW"
           },
           "sensitive_attributes": [],
           "private": "bnVsbA=="
@@ -472,25 +484,25 @@
         {
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:iam::452426097938:role/lambda_execution_role",
+            "arn": "arn:aws:iam::452426097938:role/example_lambda_execution_role",
             "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
-            "create_date": "2024-02-07T13:22:41Z",
+            "create_date": "2024-02-01T14:44:03Z",
             "description": "",
             "force_detach_policies": false,
-            "id": "lambda_execution_role",
+            "id": "example_lambda_execution_role",
             "inline_policy": [],
             "managed_policy_arns": [
-              "arn:aws:iam::452426097938:policy/api_lambda_feedback_policy",
-              "arn:aws:iam::452426097938:policy/lambda_Dynamo_policy"
+              "arn:aws:iam::452426097938:policy/api_lambda_execution_policy",
+              "arn:aws:iam::452426097938:policy/lambda_dynamodb_policy"
             ],
             "max_session_duration": 3600,
-            "name": "lambda_execution_role",
+            "name": "example_lambda_execution_role",
             "name_prefix": "",
             "path": "/",
             "permissions_boundary": "",
             "tags": {},
             "tags_all": {},
-            "unique_id": "AROAWSVVSMUJLQ7ESKDWJ"
+            "unique_id": "AROAWSVVSMUJL7FKQ6ZUA"
           },
           "sensitive_attributes": [],
           "private": "bnVsbA=="
@@ -506,9 +518,9 @@
         {
           "schema_version": 0,
           "attributes": {
-            "id": "feedback_form_api_gateway-20240207132241714000000003",
-            "policy_arn": "arn:aws:iam::452426097938:policy/api_lambda_feedback_policy",
-            "role": "feedback_form_api_gateway"
+            "id": "api_gateway_invoke_role-20240201144403404200000004",
+            "policy_arn": "arn:aws:iam::452426097938:policy/api_lambda_execution_policy",
+            "role": "api_gateway_invoke_role"
           },
           "sensitive_attributes": [],
           "private": "bnVsbA==",
@@ -528,9 +540,9 @@
         {
           "schema_version": 0,
           "attributes": {
-            "id": "feedback_form_api_gateway-20240207132241834700000004",
-            "policy_arn": "arn:aws:iam::452426097938:policy/api_lambda_feedback_policy",
-            "role": "feedback_form_api_gateway"
+            "id": "api_gateway_invoke_role-20240201144403426600000005",
+            "policy_arn": "arn:aws:iam::452426097938:policy/api_lambda_execution_policy",
+            "role": "api_gateway_invoke_role"
           },
           "sensitive_attributes": [],
           "private": "bnVsbA==",
@@ -550,9 +562,9 @@
         {
           "schema_version": 0,
           "attributes": {
-            "id": "lambda_execution_role-20240207132241712400000002",
-            "policy_arn": "arn:aws:iam::452426097938:policy/lambda_Dynamo_policy",
-            "role": "lambda_execution_role"
+            "id": "example_lambda_execution_role-20240201144403389800000003",
+            "policy_arn": "arn:aws:iam::452426097938:policy/lambda_dynamodb_policy",
+            "role": "example_lambda_execution_role"
           },
           "sensitive_attributes": [],
           "private": "bnVsbA==",
@@ -572,9 +584,9 @@
         {
           "schema_version": 0,
           "attributes": {
-            "id": "lambda_execution_role-20240207132241706000000001",
-            "policy_arn": "arn:aws:iam::452426097938:policy/api_lambda_feedback_policy",
-            "role": "lambda_execution_role"
+            "id": "example_lambda_execution_role-20240201144403385300000002",
+            "policy_arn": "arn:aws:iam::452426097938:policy/api_lambda_execution_policy",
+            "role": "example_lambda_execution_role"
           },
           "sensitive_attributes": [],
           "private": "bnVsbA==",
@@ -601,7 +613,16 @@
             "code_signing_config_arn": "",
             "dead_letter_config": [],
             "description": "",
-            "environment": [],
+            "environment": [
+              {
+                "variables": {
+                  "DB_HOST": "terraform-20240201144403015900000001.cb26mwc0o7x8.us-east-1.rds.amazonaws.com",
+                  "DB_PASS": "TerraformGuru23",
+                  "DB_USER": "KimPossible",
+                  "db_table_name": "FeedbackTable"
+                }
+              }
+            ],
             "ephemeral_storage": [
               {
                 "size": 512
@@ -616,7 +637,7 @@
             "image_uri": "",
             "invoke_arn": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:452426097938:function:trigger_feedback/invocations",
             "kms_key_arn": "",
-            "last_modified": "2024-02-07T13:40:12.531+0000",
+            "last_modified": "2024-02-05T18:26:56.527+0000",
             "layers": [],
             "memory_size": 128,
             "package_type": "Zip",
@@ -626,7 +647,7 @@
             "replace_security_groups_on_destroy": null,
             "replacement_security_group_ids": null,
             "reserved_concurrent_executions": -1,
-            "role": "arn:aws:iam::452426097938:role/lambda_execution_role",
+            "role": "arn:aws:iam::452426097938:role/example_lambda_execution_role",
             "runtime": "nodejs14.x",
             "s3_bucket": null,
             "s3_key": null,
@@ -635,8 +656,8 @@
             "signing_profile_version_arn": "",
             "skip_destroy": false,
             "snap_start": [],
-            "source_code_hash": "YDthugOVlukv5zKEXUwt9abKnXv2QPRc8wYBUfl32cM=",
-            "source_code_size": 889,
+            "source_code_hash": "oyZ93aedDXxKY6sAxVx5RruVLvqKMldSBrnGNEmLW94=",
+            "source_code_size": 769,
             "tags": {},
             "tags_all": {},
             "timeout": 10,
@@ -649,37 +670,39 @@
             "version": "$LATEST",
             "vpc_config": []
           },
-          "sensitive_attributes": [],
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "environment"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": 0,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "get_attr",
+                "value": "variables"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": "DB_PASS",
+                  "type": "string"
+                }
+              }
+            ]
+          ],
           "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
           "dependencies": [
-            "aws_iam_role.lambda_role"
-          ]
-        }
-      ]
-    },
-    {
-      "mode": "managed",
-      "type": "aws_lambda_invocation",
-      "name": "invoke_lambda",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "function_name": "trigger_feedback",
-            "id": "trigger_feedback_$LATEST_f2791c10b9735de25ff2bc864e14cba8",
-            "input": "{\"Email\":\"kimrah.bastien@ahead.com\",\"feedback\":\"This is a test\",\"name\":\"Kimrah Bastien\"}",
-            "lifecycle_scope": "CREATE_ONLY",
-            "qualifier": "$LATEST",
-            "result": "{\"statusCode\":500,\"headers\":{\"Access-Control-Allow-Origin\":\"*\",\"Access-Control-Allow-Headers\":\"Origin, X-Requested-With, Content-Type, Accept\"},\"body\":\"{\\\"message\\\":\\\"Error submitting feedback. Please try again.\\\"}\"}",
-            "terraform_key": "tf",
-            "triggers": null
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA==",
-          "dependencies": [
+            "aws_db_instance.cffdb",
+            "aws_dynamodb_table.feedbacktable",
+            "aws_iam_policy.lambda_policy",
             "aws_iam_role.lambda_role",
-            "aws_lambda_function.trigger_feedback"
+            "aws_iam_role_policy_attachment.lambda_attachment"
           ]
         }
       ]
@@ -695,24 +718,19 @@
           "attributes": {
             "action": "lambda:InvokeFunction",
             "event_source_token": null,
-            "function_name": "trigger_feedback",
+            "function_name": "arn:aws:lambda:us-east-1:452426097938:function:trigger_feedback",
             "function_url_auth_type": null,
             "id": "AllowExecutionFromAPIGateway",
             "principal": "apigateway.amazonaws.com",
             "principal_org_id": null,
             "qualifier": "",
             "source_account": null,
-            "source_arn": "arn:aws:execute-api:us-east-1:452426097938:k4yp97orw0",
+            "source_arn": null,
             "statement_id": "AllowExecutionFromAPIGateway",
             "statement_id_prefix": ""
           },
           "sensitive_attributes": [],
-          "private": "bnVsbA==",
-          "dependencies": [
-            "aws_apigatewayv2_api.feedback_api",
-            "aws_iam_role.lambda_role",
-            "aws_lambda_function.trigger_feedback"
-          ]
+          "private": "bnVsbA=="
         }
       ]
     },
@@ -975,7 +993,7 @@
             "content_encoding": "",
             "content_language": "",
             "content_type": "text/html",
-            "etag": "45213aecdb5f622b892c5c79776eb508",
+            "etag": "4ee9aa17f9ff0e0a3838207a902263d8",
             "force_destroy": false,
             "id": "feedbackform.html",
             "key": "feedbackform.html",

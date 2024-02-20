@@ -1,3 +1,4 @@
+
 # API gateway v2 resources are used for creating and deploying Websocket and HTTP APIs 
 resource "aws_apigatewayv2_api" "feedback_api" {
   name                       = "feedback_api"
@@ -19,6 +20,7 @@ resource "aws_apigatewayv2_integration" "lambda_integration" {
   integration_method = "POST"
   connection_type = "INTERNET"
   integration_uri  = aws_lambda_function.trigger_feedback.invoke_arn
+  depends_on = [ aws_lambda_function.trigger_feedback ]
   }
 
 resource "aws_apigatewayv2_route" "feedback_route" {
@@ -35,11 +37,13 @@ resource "aws_apigatewayv2_stage" "feedback_stage" {
 resource "aws_lambda_permission" "lambda_permission" {
   statement_id = "AllowExecutionFromAPIGateway"
   action = "lambda:InvokeFunction"
-  function_name = "arn:aws:lambda:us-east-1:452426097938:function:trigger_feedback"
+  function_name = "trigger_feedback"
   principal = "apigateway.amazonaws.com"
-  source_arn = "arn:aws:execute-api:us-east-1:452426097938:dzol4wlqqd/*/*/feedback_route"
+  source_arn = aws_apigatewayv2_api.feedback_api.execution_arn
+  depends_on = [ aws_lambda_function.trigger_feedback ]
   
 }
+
 
 
 
